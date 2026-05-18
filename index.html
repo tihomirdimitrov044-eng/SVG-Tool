@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Path Extractor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div>
+      <h1>SVG Path Extractor</h1>
+      <p class="subtitle">Paste an SVG and extract its path data</p>
+    </div>
+
+    <textarea id="svgInput" placeholder="<svg ...><path d=&quot;...&quot;/></svg>"></textarea>
+
+    <div class="actions">
+      <button class="primary" onclick="extract()">Extract Paths</button>
+      <button class="secondary" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div class="results" id="results"></div>
+  </div>
+
+  <script>
+    function extract() {
+      const input = document.getElementById('svgInput').value.trim();
+      const results = document.getElementById('results');
+      results.innerHTML = '';
+
+      if (!input) {
+        results.innerHTML = '<p class="message">Paste an SVG above to get started.</p>';
+        return;
+      }
+
+      let doc;
+      try {
+        doc = new DOMParser().parseFromString(input, 'image/svg+xml');
+        const parseError = doc.querySelector('parsererror');
+        if (parseError) throw new Error('Invalid SVG');
+      } catch {
+        results.innerHTML = '<p class="message error">Could not parse SVG. Make sure it is valid.</p>';
+        return;
+      }
+
+      const paths = Array.from(doc.querySelectorAll('path'));
+      const svgEl = doc.querySelector('svg');
+      const viewBox = svgEl ? (svgEl.getAttribute('viewBox') || '') : '';
+
+      if (paths.length === 0) {
+        results.innerHTML = '<p class="message">No &lt;path&gt; elements found in this SVG.</p>';
+        return;
+      }
+
+      if (viewBox) {
+        const vbCard = document.createElement('div');
+        vbCard.className = 'card card--viewbox';
+
+        const vbHeader = document.createElement('div');
+        vbHeader.className = 'card-header';
+
+        const vbLabel = document.createElement('span');
+        vbLabel.className = 'card-label card-label--viewbox';
+        vbLabel.textContent = 'viewBox — set this on your destination SVG';
+
+        const vbBtn = document.createElement('button');
+        vbBtn.className = 'copy-btn copy-btn--viewbox';
+        vbBtn.textContent = 'Copy';
+        vbBtn.addEventListener('click', () => copyText(vbBtn, viewBox));
+
+        const vbPreview = document.createElement('div');
+        vbPreview.className = 'path-preview path-preview--viewbox';
+        vbPreview.textContent = viewBox;
+
+        vbHeader.appendChild(vbLabel);
+        vbHeader.appendChild(vbBtn);
+        vbCard.appendChild(vbHeader);
+        vbCard.appendChild(vbPreview);
+        results.appendChild(vbCard);
+      }
+
+      paths.forEach((path, i) => {
+        const d = path.getAttribute('d') || '';
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const header = document.createElement('div');
+        header.className = 'card-header';
+
+        const label = document.createElement('span');
+        label.className = 'card-label';
+        label.textContent = `Path ${i + 1} of ${paths.length}`;
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', () => copyText(btn, d));
+
+        const preview = document.createElement('div');
+        preview.className = 'path-preview';
+        preview.textContent = d;
+
+        header.appendChild(label);
+        header.appendChild(btn);
+        card.appendChild(header);
+        card.appendChild(preview);
+        results.appendChild(card);
+      });
+    }
+
+    function copyText(btn, text) {
+      const success = () => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1800);
+      };
+
+      const fail = () => {
+        btn.textContent = 'Failed';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(success).catch(() => fallbackCopy(text, success, fail));
+      } else {
+        fallbackCopy(text, success, fail);
+      }
+    }
+
+    function fallbackCopy(text, success, fail) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy') ? success() : fail();
+      } catch {
+        fail();
+      }
+      document.body.removeChild(ta);
+    }
+
+    function clearAll() {
+      document.getElementById('svgInput').value = '';
+      document.getElementById('results').innerHTML = '';
+    }
+  </script>
+</body>
+</html>
