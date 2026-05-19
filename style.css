@@ -135,6 +135,7 @@ textarea::placeholder { color: var(--text-muted); opacity: 0.5; }
 .actions {
   display: flex;
   gap: 8px;
+  justify-content: center;
 }
 
 .btn {
