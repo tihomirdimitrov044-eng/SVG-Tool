@@ -7,20 +7,22 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <div>
-      <h1>SVG Path Extractor</h1>
-      <p class="subtitle">Paste an SVG and extract its path data</p>
+  <div class="page">
+    <div class="container">
+      <div class="heading">
+        <h1>SVG Path Extractor</h1>
+        <p class="subtitle">Paste an SVG and extract its path data</p>
+      </div>
+
+      <textarea id="svgInput" placeholder="Paste your SVG here…"></textarea>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="extract()">Extract Paths</button>
+        <button class="btn btn-ghost" onclick="clearAll()">Clear</button>
+      </div>
+
+      <div class="results" id="results"></div>
     </div>
-
-    <textarea id="svgInput" placeholder="<svg ...><path d=&quot;...&quot;/></svg>"></textarea>
-
-    <div class="actions">
-      <button class="primary" onclick="extract()">Extract Paths</button>
-      <button class="secondary" onclick="clearAll()">Clear</button>
-    </div>
-
-    <div class="results" id="results"></div>
   </div>
 
   <script>
