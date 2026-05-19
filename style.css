@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -5,110 +7,116 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0f0f0f;
-  color: #e8e8e8;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0d0d0d;
+  color: #d4d4d4;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 48px 24px;
+  padding: 56px 24px;
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
-  letter-spacing: -0.3px;
-  margin-bottom: 6px;
-  color: #fff;
+  letter-spacing: -0.2px;
+  margin-bottom: 4px;
+  color: #ececec;
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 32px;
+  font-size: 13px;
+  color: #5a5a5a;
+  margin-bottom: 28px;
 }
 
 .container {
   width: 100%;
-  max-width: 680px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-textarea {
-  width: 100%;
-  height: 180px;
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  color: #e8e8e8;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 12px;
-  line-height: 1.6;
-  padding: 16px;
-  resize: vertical;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-textarea:focus {
-  border-color: #444;
-}
-
-textarea::placeholder {
-  color: #3a3a3a;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-button.primary {
-  background: #7c3aed;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-button.primary:hover {
-  background: #6d28d9;
-}
-
-button.secondary {
-  background: transparent;
-  color: #666;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-button.secondary:hover {
-  color: #aaa;
-  border-color: #444;
-}
-
-.results {
+  max-width: 660px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+textarea {
+  width: 100%;
+  height: 160px;
+  background: #141414;
+  border: 1px solid #242424;
+  border-radius: 6px;
+  color: #d4d4d4;
+  font-family: 'Geist Mono', 'SF Mono', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 14px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+textarea:focus {
+  border-color: #3b82f6;
+}
+
+textarea::placeholder {
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+button.primary {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+}
+
+button.primary:hover {
+  background: #2563eb;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+button.secondary {
+  background: transparent;
+  color: #5a5a5a;
+  border: 1px solid #242424;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+button.secondary:hover {
+  color: #999;
+  border-color: #383838;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
 .message {
-  font-size: 14px;
-  color: #555;
+  font-size: 13px;
+  color: #3d3d3d;
   text-align: center;
-  padding: 24px 0;
+  padding: 28px 0;
 }
 
 .message.error {
@@ -116,17 +124,27 @@ button.secondary:hover {
 }
 
 .card {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  padding: 16px;
+  background: #141414;
+  border: 1px solid #222;
+  border-radius: 6px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transition: border-color 0.15s;
+}
+
+.card:hover {
+  border-color: #2e2e2e;
 }
 
 .card--viewbox {
-  border-color: #3a2a5a;
+  border-color: #1a2a42;
+  background: #111820;
+}
+
+.card--viewbox:hover {
+  border-color: #1e3354;
 }
 
 .card-header {
@@ -137,55 +155,66 @@ button.secondary:hover {
 
 .card-label {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: #555;
+  letter-spacing: 0.7px;
+  color: #3d3d3d;
 }
 
 .card-label--viewbox {
-  color: #a78bfa;
+  color: #3b82f6;
 }
 
 .copy-btn {
-  background: #2a2a2a;
-  color: #aaa;
-  border: none;
-  border-radius: 6px;
-  padding: 5px 12px;
+  background: #1e1e1e;
+  color: #7a7a7a;
+  border: 1px solid #2a2a2a;
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  min-width: 70px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  min-width: 66px;
   text-align: center;
 }
 
 .copy-btn:hover {
-  background: #333;
-  color: #fff;
+  background: #252525;
+  color: #d4d4d4;
+  border-color: #383838;
 }
 
 .copy-btn.copied {
-  background: #14532d;
+  background: #0d2818;
   color: #4ade80;
+  border-color: #14532d;
 }
 
 .copy-btn--viewbox {
-  background: #3a2a5a;
-  color: #a78bfa;
+  background: #0f1f36;
+  color: #3b82f6;
+  border-color: #1a3460;
+}
+
+.copy-btn--viewbox:hover {
+  background: #142848;
+  color: #60a5fa;
+  border-color: #1e3a6e;
 }
 
 .path-preview {
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: 'Geist Mono', 'SF Mono', monospace;
   font-size: 11px;
-  color: #777;
+  color: #4a4a4a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .path-preview--viewbox {
-  color: #a78bfa;
+  color: #3b82f6;
+  opacity: 0.7;
 }
